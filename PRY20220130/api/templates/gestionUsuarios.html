@@ -1,0 +1,60 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestion de usuarios {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestion de Usuarios</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarUsuario/" method="post">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="numUsuario_Codigo" name="numUsuario_Codigo" class="form-control" placeholder="Usuario_Codigo" minlength="1" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtUsuario_Correo" name="txtUsuario_Correo" class="form-control" placeholder="Usuario_Correo" minlength="1" maxlength="40" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtUsuario_Contrasena" name="txtUsuario_Contrasena" class="form-control" placeholder="Usuario_Contrasena" minlength="1" minlength="40" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtUsuario_Rol" name="txtUsuario_Rol" class="form-control" placeholder="Usuario_Rol" minlength="1" minlength="40" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block txt-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de Usuarios</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Usuario_Codigo</th>
+                        <th>Usuario_Correo</th>
+                        <th>Usuario_Contrasena</th>
+                        <th>Usuario_Rol</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in usuarios %}
+                    <tr>
+                        <td>{{i.Usuario_Codigo}}</td>
+                        <td>{{i.Usuario_Correo}}</td>
+                        <td>{{i.Usuario_Contrasena}}</td>
+                        <td>{{i.Usuario_Rol}}</td>  
+                        <td><a href="edicionUsuario/{{i.Usuario_Codigo}}" class="btn btn-dark">Editar</a></td>
+                        <td><a href="eliminarUsuario/{{i.Usuario_Codigo}}" class="btn btn-danger">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
